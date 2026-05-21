@@ -1,6 +1,6 @@
 
 
-export default function Recepcion({ tarimas, ajustarCantidadTienda }) {
+export default function Recepcion({ tarimas, numeroFactura, numeroTrailer, ajustarCantidadTienda }) {
   let montoTotalFactura = 0;
   let montoTotalRecibido = 0;
   let totalPerdidaDanados = 0;
