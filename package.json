@@ -10,16 +10,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
-<<<<<<< HEAD
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.3.0",
     "react": "^19.2.6",
     "react-dom": "^19.2.6",
     "tailwindcss": "^4.3.0"
-=======
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6"
->>>>>>> 7afdfa6093e473e32d8c826dd5a2ec4fcca42949
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
