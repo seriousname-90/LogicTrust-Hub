@@ -2,12 +2,11 @@
 
 export default function Cedi({ 
   numeroTrailer, setNumeroTrailer, 
-  numeroContenedor, setNumeroContenedor, 
+  
   numeroFactura, setNumeroFactura,
   tarimas, crearNuevaTarima,
   tarimaDestino, setTarimaDestino,
   productoSeleccionado, setProductoSeleccionado,
-  cantidadAñadir, setCantidadAñadir,
   añadirProductoATarima,
   productosDisponibles 
 }) {
