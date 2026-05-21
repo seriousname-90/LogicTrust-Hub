@@ -1,7 +1,8 @@
 import  { useState } from 'react';
 import { PRODUCTOS_DISPONIBLES } from './Data/mockData';
-import Cedi from './cedi';
-import Recepcion from './recepcion';
+import Cedi from './cedi.jsx';
+import Recepcion from './recepcion.jsx';
+import './App.css';
 
 export default function App() {
   // --- ESTADOS PRINCIPALES ---
@@ -35,41 +36,43 @@ export default function App() {
 
   const añadirProductoATarima = () => {
     const prodBase = PRODUCTOS_DISPONIBLES.find(p => p.id === productoSeleccionado);
-    const nuevasTarimas = tarimas.map(tarima => {
+    setTarimas(prev => prev.map(tarima => {
       if (tarima.id === tarimaDestino) {
         const existe = tarima.productos.find(p => p.id === productoSeleccionado);
         if (existe) {
-          existe.enviado += parseInt(cantidadAñadir);
-          existe.recibido = existe.enviado; // Se inicializa igual para el conteo por excepción
-        } else {
-          tarima.productos.push({
-            ...prodBase,
-            enviado: parseInt(cantidadAñadir),
-            recibido: parseInt(cantidadAñadir),
-            danado: 0
-          });
+          return {
+            ...tarima,
+            productos: tarima.productos.map(p => 
+              p.id === productoSeleccionado 
+                ? { ...p, enviado: p.enviado + parseInt(cantidadAñadir), recibido: p.enviado + parseInt(cantidadAñadir) }
+                : p
+            )
+          };
         }
+        return {
+          ...tarima,
+          productos: [...tarima.productos, { ...prodBase, enviado: parseInt(cantidadAñadir), recibido: parseInt(cantidadAñadir), danado: 0 }]
+        };
       }
       return tarima;
-    });
-    setTarimas(nuevasTarimas);
+    }));
   };
 
   // --- FUNCIONES MÓDULO TIENDA ---
   const ajustarCantidadTienda = (tarimaId, productoId, campo, valor) => {
-    const nuevasTarimas = tarimas.map(t => {
-      if (t.id === tarimaId) {
-        t.productos = t.productos.map(p => {
-          if (p.id === productoId) {
-            if (campo === 'recibido' && valor >= 0) p.recibido = valor;
-            if (campo === 'danado' && valor >= 0 && valor <= p.recibido) p.danado = valor;
-          }
-          return p;
-        });
-      }
-      return t;
-    });
-    setTarimas(nuevasTarimas);
+    setTarimas(prev => prev.map(t => {
+      if (t.id !== tarimaId) return t;
+      return {
+        ...t,
+        productos: t.productos.map(p => {
+          if (p.id !== productoId) return p;
+          const nuevoP = { ...p };
+          if (campo === 'recibido' && valor >= 0) nuevoP.recibido = valor;
+          if (campo === 'danado' && valor >= 0 && valor <= (nuevoP.recibido || p.recibido)) nuevoP.danado = valor;
+          return nuevoP;
+        })
+      };
+    }));
   };
 
   return (
