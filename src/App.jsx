@@ -1,3 +1,4 @@
+
 import  { useState } from 'react';
 import { PRODUCTOS_DISPONIBLES } from './Data/mockData';
 
@@ -319,3 +320,17 @@ export default function App() {
     </div>
   );
 }
+
+import React from 'react'
+
+function App() {
+  
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default App
+
